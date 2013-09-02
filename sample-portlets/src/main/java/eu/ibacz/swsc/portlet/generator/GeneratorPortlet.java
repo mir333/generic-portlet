@@ -18,10 +18,14 @@ import java.util.List;
  */
 public class GeneratorPortlet extends GenericPortlet {
     private static final String JSP_VIEW = "/WEB-INF/jsp/generator/view.jsp";
+    private static final String ATTR_NUMBERS = "numbers";
+    private static final Integer LIMIT = 20;
 
     @Override
        protected void doView(RenderRequest request, RenderResponse response) throws PortletException,
             IOException {
+
+        request.setAttribute(ATTR_NUMBERS, fib(LIMIT));
 
            PortletRequestDispatcher dispatcher =
                    getPortletContext().getRequestDispatcher(JSP_VIEW);
