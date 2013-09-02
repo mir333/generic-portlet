@@ -17,20 +17,35 @@ import java.util.List;
  * @author Miroslav Ligas <miroslav.ligas@ibacz.eu>
  */
 public class GeneratorPortlet extends GenericPortlet {
-    private static final String JSP_VIEW = "/WEB-INF/jsp/generator/view.jsp";
-    private static final String ATTR_NUMBERS = "numbers";
-    private static final Integer LIMIT = 20;
 
     @Override
-       protected void doView(RenderRequest request, RenderResponse response) throws PortletException,
+    protected void doView(RenderRequest request, RenderResponse response) throws PortletException,
             IOException {
+        String jspToRender;
 
-        request.setAttribute(ATTR_NUMBERS, fib(LIMIT));
+        String view = request.getParameter(GeneratorPortletConstants.VIEW_PARAM);
+        if (GeneratorPortletConstants.VIEW_DETAIL.equals(view)) {
+            jspToRender = doViewDetail(request, response);
+        } else {
+            jspToRender = doViewMain(request, response);
+        }
 
-           PortletRequestDispatcher dispatcher =
-                   getPortletContext().getRequestDispatcher(JSP_VIEW);
-           dispatcher.include(request, response);
-       }
+
+        PortletRequestDispatcher dispatcher =
+                getPortletContext().getRequestDispatcher(jspToRender);
+        dispatcher.include(request, response);
+    }
+
+    private String doViewDetail(RenderRequest request, RenderResponse response) {
+        return GeneratorPortletConstants.JSP_DETAIL;
+    }
+
+    private String doViewMain(RenderRequest request, RenderResponse response) {
+        request.setAttribute(GeneratorPortletConstants.ATTR_NUMBERS, fib(GeneratorPortletConstants.LIMIT));
+        return GeneratorPortletConstants.JSP_VIEW;
+    }
+
+
 
     public List<Long> fib(Integer limit) {
         List<Long> result = new ArrayList<Long>(limit);
