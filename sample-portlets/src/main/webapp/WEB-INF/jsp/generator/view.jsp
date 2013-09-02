@@ -11,17 +11,23 @@
     <%=request.getContextPath()%>
 </c:set>
 
+<f:setBundle basename="content.generator"/>
 
-<h1>First 20 Fibonacci numbers</h1>
+
+<h1><f:message key="generator-title"/></h1>
 <table style="width: 100%">
-    <c:forEach var="number" items="${numbers}" varStatus="status">
     <tr>
-        <td>
-            ${status.index}
-        </td>
-        <td>
-            ${number}
-        </td>
+        <th><f:message key="generator-table-index"/></th>
+        <th><f:message key="generator-table-number"/></th>
     </tr>
+    <c:forEach var="number" items="${numbers}" varStatus="status">
+        <tr>
+            <td>
+                    ${status.index}
+            </td>
+            <td>
+                    ${number}
+            </td>
+        </tr>
     </c:forEach>
 </table>
