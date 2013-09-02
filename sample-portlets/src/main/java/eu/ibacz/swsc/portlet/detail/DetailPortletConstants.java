@@ -17,4 +17,5 @@ public class DetailPortletConstants {
     public static final String PRP_ENTRY_ID = "entryId";
     public static final String ATTR_FIB_NO = "fibNumber";
     public static final String EMPTY_STRING = "";
+    public static final String GET_TIME_RES = "getTimeResource";
 }

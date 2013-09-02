@@ -11,6 +11,8 @@ package eu.ibacz.swsc.portlet.detail;
 
 import javax.portlet.*;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 
 import static eu.ibacz.swsc.portlet.detail.DetailPortletConstants.*;
 
@@ -32,7 +34,35 @@ public class DetailPortlet extends GenericPortlet {
         dispatcher.include(request, response);
     }
 
-    public Long fib(Integer n) {
+    @Override
+    public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+        String resourceID = request.getResourceID();
+        if (GET_TIME_RES.equals(resourceID)) {
+            sendTime(response);
+        } else {
+            super.serveResource(request, response);
+        }
+    }
+
+    private void sendTime(ResourceResponse response) {
+        Date now = new Date();
+        PrintWriter out = null;
+        try {
+            response.setContentType("text/json");
+            out = response.getWriter();
+            out.print("{time:'");
+            out.print(now.toString());
+            out.print("'}");
+        } catch (IOException ex) {
+            // log error
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+        }
+    }
+
+    private Long fib(Integer n) {
         if (n < 2) {
             return Long.valueOf(n);
         } else {
