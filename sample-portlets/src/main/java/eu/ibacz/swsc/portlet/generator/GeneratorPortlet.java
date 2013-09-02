@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static eu.ibacz.swsc.portlet.generator.GeneratorPortletConstants.*;
+
 /**
  * @author Miroslav Ligas <miroslav.ligas@ibacz.eu>
  */
@@ -23,8 +25,8 @@ public class GeneratorPortlet extends GenericPortlet {
             IOException {
         String jspToRender;
 
-        String view = request.getParameter(GeneratorPortletConstants.VIEW_PARAM);
-        if (GeneratorPortletConstants.VIEW_DETAIL.equals(view)) {
+        String view = request.getParameter(VIEW_PARAM);
+        if (VIEW_DETAIL.equals(view)) {
             jspToRender = doViewDetail(request, response);
         } else {
             jspToRender = doViewMain(request, response);
@@ -37,15 +39,27 @@ public class GeneratorPortlet extends GenericPortlet {
     }
 
     private String doViewDetail(RenderRequest request, RenderResponse response) {
-        return GeneratorPortletConstants.JSP_DETAIL;
+        String index = request.getParameter(PARAM_INDEX);
+        Integer i = Integer.parseInt(index);
+        List<Long> fib = fib(i + 1);
+        int size = fib.size();
+
+        request.setAttribute(ATTR_FIRST, fib.get(size - 3));
+        request.setAttribute(ATTR_SECOND, fib.get(size - 2));
+        request.setAttribute(ATTR_SUM, fib.get(size - 1));
+        return JSP_DETAIL;
     }
 
     private String doViewMain(RenderRequest request, RenderResponse response) {
-        request.setAttribute(GeneratorPortletConstants.ATTR_NUMBERS, fib(GeneratorPortletConstants.LIMIT));
-        return GeneratorPortletConstants.JSP_VIEW;
+        request.setAttribute(ATTR_NUMBERS, fib(LIMIT));
+        return JSP_VIEW;
     }
 
 
+    @ProcessAction(name = SHOW_DETAIL)
+    public void showDetail(ActionRequest request, ActionResponse response) throws PortletException, IOException {
+        response.setRenderParameters(request.getParameterMap());
+    }
 
     public List<Long> fib(Integer limit) {
         List<Long> result = new ArrayList<Long>(limit);
