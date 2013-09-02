@@ -4,5 +4,6 @@
 <display>
 	<category name="IBA-SAMPLES">
 		<portlet id="generator-portlets" />
+		<portlet id="detail-portlets" />
 	</category>
 </display>

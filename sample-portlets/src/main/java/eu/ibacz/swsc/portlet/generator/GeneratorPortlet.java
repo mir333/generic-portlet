@@ -8,6 +8,8 @@
  * =========================================================================== */
 package eu.ibacz.swsc.portlet.generator;
 
+import eu.ibacz.swsc.portlet.detail.DetailPortletConstants;
+
 import javax.portlet.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ public class GeneratorPortlet extends GenericPortlet {
     @ProcessAction(name = SHOW_DETAIL)
     public void showDetail(ActionRequest request, ActionResponse response) throws PortletException, IOException {
         response.setRenderParameters(request.getParameterMap());
+        response.setRenderParameter(DetailPortletConstants.PRP_ENTRY_ID, request.getParameter(PARAM_INDEX));
     }
 
     public List<Long> fib(Integer limit) {

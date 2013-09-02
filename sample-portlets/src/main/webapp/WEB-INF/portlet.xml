@@ -16,5 +16,26 @@
         <supported-locale>en</supported-locale>
         <supported-locale>cs</supported-locale>
         <resource-bundle>content.generator</resource-bundle>
+        <supported-public-render-parameter>entryId</supported-public-render-parameter>
     </portlet>
+    <portlet>
+        <portlet-name>detail-portlets</portlet-name>
+        <display-name>Detail Portlet</display-name>
+        <portlet-class>eu.ibacz.swsc.portlet.detail.DetailPortlet</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <supported-locale>cs</supported-locale>
+        <resource-bundle>content.detail</resource-bundle>
+        <supported-public-render-parameter>entryId</supported-public-render-parameter>
+    </portlet>
+    <default-namespace>http://swsc.ibacz.eu/sample-portlets</default-namespace>
+
+    <public-render-parameter>
+        <identifier>entryId</identifier>
+        <name>entryId</name>
+    </public-render-parameter>
 </portlet-app>
