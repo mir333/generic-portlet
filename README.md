@@ -1,4 +1,4 @@
-swsc2013
+Generic Portlet Example
 ========
 
-swsc2013
+This is step by step generic protlet example
